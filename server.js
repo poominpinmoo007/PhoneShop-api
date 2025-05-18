@@ -10,10 +10,17 @@ app.use(express.urlencoded({ extended: true }));
 const { UserController } = require("./controllers/UserController");
 const { CompanyController } = require("./controllers/CompanyController");
 const { ProductController } = require("./controllers/ProductController");
+const { SellController} = require("./controllers/SellController")
+
+//
+//Sell
+app.post("/api/sell/create", SellController.create)
 
 //
 // User
 app.post("/api/user/signin", UserController.signIn);
+app.get("/api/user/info", UserController.info)
+app.put("/api/user/update", UserController.update);
 
 //
 // Company
