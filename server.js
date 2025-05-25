@@ -11,6 +11,14 @@ const { UserController } = require("./controllers/UserController");
 const { CompanyController } = require("./controllers/CompanyController");
 const { ProductController } = require("./controllers/ProductController");
 const { SellController} = require("./controllers/SellController")
+const { ServiceController } = require("./controllers/ServiceController") 
+
+//
+//service
+app.post("/api/service/create",ServiceController.create)
+app.get("/api/service/list",ServiceController.list)
+app.put("/api/service/update/:id", ServiceController.update);
+app.delete("/api/service/delete/:id", ServiceController.remove);
 
 //
 //Sell
@@ -24,6 +32,7 @@ app.get("/api/sell/confirm", SellController.confirm)
 app.post("/api/user/signin", UserController.signIn);
 app.get("/api/user/info", UserController.info)
 app.put("/api/user/update", UserController.update);
+app.get("/api/user/list", UserController.list)
 
 //
 // Company
