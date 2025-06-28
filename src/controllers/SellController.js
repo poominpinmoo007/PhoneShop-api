@@ -62,9 +62,10 @@ module.exports={
         },
         remove: async (req,res) =>{
             try{
+                const sellId = req.params.id;
                 await prisma.sell.delete({
                     where:{
-                        id:req.params.id
+                        id: sellId
                     }
                 })
                 res.json({message:"success"})
@@ -102,6 +103,34 @@ module.exports={
                     }
                 })
                 res.json({message:"success"})
+            }catch(error){
+                return res.status(500).json({
+                    message: error.message
+                });
+            }
+        },
+        dashboard: async (req,res) =>{
+            try{
+                const income = await prisma.sell.aggregate({
+                    _sum:{
+                        price:true
+                    },
+                    where:{
+                        status:'paid'
+                    }
+                })
+                const totalServices = await prisma.service.count({})
+                const totalSell = await prisma.sell.count({
+                    where:{
+                        status:'paid'
+                    }
+                })
+                let result = {
+                    income:income._sum.price,
+                    totalServices:totalServices,
+                    totalSell:totalSell
+                }
+                res.json(result)
             }catch(error){
                 return res.status(500).json({
                     message: error.message

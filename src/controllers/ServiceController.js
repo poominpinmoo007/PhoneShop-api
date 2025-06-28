@@ -33,31 +33,33 @@ module.exports = {
         },
         update: async (req,res) =>{
             try{
+                const serviceId = req.params.id;
                 await prisma.service.update({
                     where:{
-                        id: req.params.id
+                        id: serviceId
                     },
                     data:{
-                        name : req.body.naem,
+                        name : req.body.name,
                         price : req.body.price,
                         remark: req.body.remark
                     }
                 })
                 res.json({message: 'success'})
             }catch(error){
-                res.satus(500).json({error:error.message})
+                res.status(500).json({error:error.message})
             }
         },
         remove: async (req,res) =>{
             try{
+                const serviceId = req.params.id;
                 await prisma.service.delete({
                     where:{
-                        id: req.params.id
+                        id: serviceId
                     }
                 })
                 res.json({message: 'success'})
             }catch(error){
-                res.satus(500).json({error:error.message})
+                res.status(500).json({error:error.message})
             }
         }
     }

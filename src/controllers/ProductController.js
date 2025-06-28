@@ -56,8 +56,9 @@ module.exports = {
         },
         update: async (req, res) => {
             try {
+                const productId = req.params.id;
                 await prisma.product.update({
-                    where: { id: req.params.id },
+                    where: { id: productId },
                     data: {
                         release: req.body.release,
                         serial: req.body.serial,
@@ -81,8 +82,9 @@ module.exports = {
         },
         remove: async (req, res) => {
             try {
+                const productId = req.params.id;
                 await prisma.product.update({
-                    where: { id: req.params.id },
+                    where: { id: productId },
                     data: {
                         status: "deleted"
                     }
